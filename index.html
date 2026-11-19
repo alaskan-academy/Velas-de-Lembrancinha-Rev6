@@ -5,32 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fábrica das Velas de Lembrancinha — Handify™</title>
 
-  <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "ouuj5ml1l8");
-  </script>
+  <!-- Tres coisas sairam DAQUI em 18/11/2026, quando esta pagina passou a ser
+       medida pelo track.js. Nenhuma delas deve voltar:
 
-  <meta name="facebook-domain-verification" content="io5e59qwg2365fnc02mebl1f6hzur4" />
+       1. MICROSOFT CLARITY, colado inline com o projeto ouuj5ml1l8. Esse
+          projeto foi APOSENTADO em 20/10/2026: o dominio handify.com.br hoje
+          grava em z0t4jzoek5, e quem carrega o Clarity e o proprio track.js,
+          com o projeto que /api/identify devolve pelo DOMINIO da pagina
+          (tracking.clarity_projetos). Nao recolar aqui, e nao basta tirar a
+          chamada: o carregador do track.js DESISTE por duas vias, se
+          window.clarity ja existir e se achar script[src*="clarity.ms/tag/"]
+          no DOM. Um trecho recolado vence a tabela em silencio, e a pagina
+          fica gravando sessao no projeto errado parecendo certa.
 
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
+       2. A UTMIFY, nos dois blocos (o latest.js das UTMs e o pixel
+          6a4c10efefa9827bb7241eb9). Com pixel:true no TRACK_CONFIG os dois
+          lados mandariam PageView, ViewContent e InitiateCheckout para o
+          mesmo pixel com event_id de geradores diferentes, e o eventID da
+          UTMify nasce no servidor dela: nao da para deduplicar, a Meta conta
+          dobrado. Quem leva a origem ao checkout agora e o sck montado pelo
+          track.js, que e o que o material do curso manda (1:35:50).
 
-  <script>
-    window.pixelId = "6a4c10efefa9827bb7241eb9";
-    var a = document.createElement("script");
-    a.setAttribute("async", "");
-    a.setAttribute("defer", "");
-    a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-    document.head.appendChild(a);
-  </script>
+       3. A VERIFICACAO DE DOMINIO DA META. Ela passou a ser do dominio RAIZ
+          (handify.com.br), por registro TXT no DNS, e de la cobre todos os
+          subdominios de uma vez. A Meta verifica o eTLD+1 e nao o eTLD+2:
+          token por subdominio nao fazia, para Aggregated Event Measurement,
+          o que parecia fazer. Catorze dessas tags sairam em 20/10/2026, em
+          treze repositorios. Esta aqui e uma que voltou junto com o copia e
+          cola do <head>. Nao recolar.
+
+       Ver docs/pagina-nova-checklist.md no repo de tracking. -->
   <link rel="icon" type="image/png" href="assets/logos/icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -1406,6 +1410,16 @@
       .step { padding-left: 60px; }
     }
   </style>
+
+<!-- A configuracao vem ANTES do src. Com defer tanto faz, mas na ordem
+     invertida, se um dia o defer se perder, o produto nao existe quando o
+     script roda e a visita nasce sem carimbo.
+     produto = 4MJ9YD e o code da Payt (Fabrica das Velas de Lembrancinha),
+     nao apelido. O host do src decide qual /privacidade responde, e esta
+     pagina e da Handify. banner:false so vale com o link da politica no
+     rodape, que entrou no mesmo commit. -->
+<script>window.TRACK_CONFIG={produto:"4MJ9YD",pixel:true,banner:false}</script>
+<script src="https://track.handify.com.br/track.js" defer></script>
 </head>
 <body>
 
@@ -2378,7 +2392,7 @@
     <img src="assets/logos/logo-horizontal-footer.png" alt="Handify™" />
     <p>© 2026 Handify™ · Plataforma de Cursos de Artesanato · Todos os direitos reservados.</p>
     <p>
-      <a href="#">Política de Privacidade</a> &nbsp;·&nbsp; <a href="#">Termos de Uso</a>
+      <a href="https://track.handify.com.br/privacidade" target="_blank" rel="noopener">Política de Privacidade</a>
     </p>
     <p>
       Este produto é entregue digitalmente. Os resultados mencionados não são garantidos
